@@ -23,7 +23,7 @@ pipeline
    
   stages
   {
-    stage("Stage 1 Operaciones Aritmeticas")
+    stage('Stage 1 Operaciones Aritmeticas')
     {
       steps
       {
