@@ -74,7 +74,7 @@ pipeline
         }
       }
   
-      stage("Stage 2: Comando tipo bat)
+      stage("Stage 2: Comando tipo bat")
       {
         steps
         {
