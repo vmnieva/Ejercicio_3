@@ -98,34 +98,36 @@ pipeline
         }
       }
     }
-  }
-  
-  post
-  {
-    always
+    post
     {
-      echo "El Ejercicio_3 se ejecuto. "
-    }
-    
-    failure
-    {
-      script
+      always
       {
-        println 'EL pipeline fallo'
-        def errorMessage = currentBuild.rawBuild.getLog(1000).join('\n')
-        println 'Detalles del error: ${errorMessage}'
-        mail to: "victorm.nieva@inetum.com", subject: "Pipeline Fallo", body: "El pipeline no se ejecuto."
+        echo "El Ejercicio_3 se ejecuto. "
+      }
+      
+      failure
+      {
+        script
+        {
+          println 'EL pipeline fallo'
+          def errorMessage = currentBuild.rawBuild.getLog(1000).join('\n')
+          println 'Detalles del error: ${errorMessage}'
+          mail to: "victorm.nieva@inetum.com", subject: "Pipeline Fallo", body: "El pipeline no se ejecuto."
+        }
+      }
+      
+      unstable
+      {
+        echo "El pipeline no se ejecuto de forma estable."
+      }
+      
+      success
+      {
+        echo "Mensaje a ejecutar si salio todo bien"        
       }
     }
-    
-    unstable
-    {
-      echo "El pipeline no se ejecuto de forma estable."
-    }
-    
-    success
-    {
-      echo "Mensaje a ejecutar si salio todo bien"        
-    }
   }
-}
+  
+
+
+
