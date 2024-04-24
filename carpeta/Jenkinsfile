@@ -59,6 +59,30 @@ pipeline
         }
       }
     }
+    
+    stage("Stage 2 Comando tipo bat")
+    {
+        steps
+        {
+          bat "ipconfig /flushdns"
+        }  
+    }
+    
+    stage("Stage 3 Generar fichero")
+      {
+        steps
+        {
+          script
+          {
+            dia = new Date()
+            formato = new SimpleDateFormat("dd/MM/yyyy")
+            fechaFormato = formato.format(dia)
+            contenido =  "Este ejercicio ha sido ejecutado el dia: " + fechaFormato + "\n El numero1 es: " + numero1 + "\n El numero2 es: " + numero2 + "\n La suma es: " + suma + "\n La resta es: " + resta + "\n La multiplicacion es: " + multiplicacion + "\n La division es: " + division
+            writeFile(file: env.RUTA_ABSOLUTA, text: contenido)
+            println "Se ha generado el fichero en la rula: " + env.RUTA_ABSOLUTA
+          }
+        }
+      }    
   }
   
   post
