@@ -23,7 +23,7 @@ pipeline
    
   stages
   {
-    stage('Stage 1 Operaciones Aritmeticas')
+    stage("Stage 1 Operaciones Aritmeticas")
     {
       steps
       {
@@ -73,40 +73,17 @@ pipeline
          }
         }
       }
+  }
   
-      stage("Stage 2 Comando tipo bat")
-      {
-        steps
-        {
-          bat "ipconfig /flushdns"
-        }  
-      }
-                
-      stage("Stage 3 Generar fichero")
-      {
-        steps
-        {
-          script
-          {
-            dia = new Date()
-            formato = new SimpleDateFormat("dd/MM/yyyy")
-            fechaFormato = formato.format(dia)
-            contenido =  "Este ejercicio ha sido ejecutado el dia: " + fechaFormato + "\n El numero1 es: " + numero1 + "\n El numero2 es: " + numero2 + "\n La suma es: " + suma + "\n La resta es: " + resta + "\n La multiplicacion es: " + multiplicacion + "\n La division es: " + division
-            writeFile(file: env.RUTA_ABSOLUTA, text: contenido)
-            println "Se ha generado el fichero en la rula: " + env.RUTA_ABSOLUTA
-          }
-        }
-      }
-    }
-    post
+  post
+  {
+    always
     {
-      always
-      {
         echo "El Ejercicio_3 se ejecuto. "
-      }
+    }
       
-      failure
-      {
+    failure
+    {
         script
         {
           println 'EL pipeline fallo'
@@ -114,19 +91,19 @@ pipeline
           println 'Detalles del error: ${errorMessage}'
           mail to: "victorm.nieva@inetum.com", subject: "Pipeline Fallo", body: "El pipeline no se ejecuto."
         }
-      }
+    }
       
-      unstable
-      {
-        echo "El pipeline no se ejecuto de forma estable."
-      }
+    unstable
+    {
+      echo "El pipeline no se ejecuto de forma estable."
+    }
       
-      success
-      {
-        echo "Mensaje a ejecutar si salio todo bien"        
-      }
+    success
+    {
+      echo "Mensaje a ejecutar si salio todo bien"        
     }
   }
+}
   
 
 
