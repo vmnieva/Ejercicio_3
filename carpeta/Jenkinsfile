@@ -55,6 +55,7 @@ pipeline
             println "El resultado de la division de: " + numero1
             println "y: " + numero2
             println "es igual a: " + division
+          }
         }
       }
     }
